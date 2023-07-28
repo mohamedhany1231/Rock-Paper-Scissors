@@ -1,4 +1,8 @@
-
+let computerScore = document.querySelector(".computerScore h1");
+let  playerScore = document.querySelector(".playerScore h1");
+let announcement = document.querySelector(".announce")
+let announcementText = document.querySelector(".announce h1")
+let playAgainBtn = document.querySelector(".announce button");
 function getComputerChoice () {
     let randomNumber  = Math.random();
     if (randomNumber <= 0.33) {
@@ -8,6 +12,26 @@ function getComputerChoice () {
     }
     return'Scissors';
 }
+function announceWin(){
+    announcementText.innerText = "YOU WIN";
+    announcement.style.visibility = "visible";
+    announcement.style.color="green";
+}
+
+function announceLose(){
+    announcementText.innerText = "YOU LOST";
+    announcement.style.visibility = "visible";
+    announcement.style.color="red";
+}
+function resetGame()
+{
+    playerScore.innerText ="0";
+    computerScore.innerText = "0";
+
+}
+
+playAgainBtn.addEventListener("click", () => announcement.style.visibility = "hidden")
+
 
  let playRound = ( playerSelection,computerSelection) => {
     console.log(playerSelection ," vs ", computerSelection);
@@ -21,28 +45,27 @@ function getComputerChoice () {
          (playerSelection =='Paper' && computerSelection== 'Rock' )         
     ) 
         { 
+            playerScore.innerText++;
+            if(playerScore.innerText >= 5) 
+            {
+                resetGame();
+                announceWin();
+            }
             return  `You Win! ${playerSelection} beats ${computerSelection}`
         }
     else 
-    {
+    {   
+        computerScore.innerText++;
+        if(computerScore.innerText >= 5) 
+        { 
+            announceLose();
+            resetGame();
+        }
         return  `You Lose! ${computerSelection} beats ${playerSelection}`
     }
+   
  }
  
- function game () {
-    let playerSelection = prompt("Choose (Rock, paper, Scissors)" , "Rock")
- 
-    // validate user inpue
-    if (playerSelection.toUpperCase() != "ROCK" &&
-        playerSelection.toUpperCase() != "PAPER" && 
-        playerSelection.toUpperCase() != "SCISSORS"  
-        )
-    {
-        alert("Wrong input, Value has been set to Rock");
-    }
-    let computerSelection =getComputerChoice();
-     console.log(playRound(playerSelection, computerSelection));
- }
 
 
 //   buttons event listener
@@ -53,7 +76,7 @@ let buttonsDiv = document.querySelector(".buttons");
  buttons.forEach(btn => {
      let value = btn.getAttribute("value")
     btn.addEventListener("click" , () => { 
-        console.log(playRound(value , getComputerChoice()))
+        playRound(value , getComputerChoice())
        
     } )
 });
