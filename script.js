@@ -10,7 +10,7 @@ function getComputerChoice () {
 }
 
  let playRound = ( playerSelection,computerSelection) => {
-    playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1)
+    console.log(playerSelection ," vs ", computerSelection);
     // check for draw
     if (playerSelection == computerSelection) return 'tie!';
     //  check if player win
@@ -44,8 +44,18 @@ function getComputerChoice () {
      console.log(playRound(playerSelection, computerSelection));
  }
 
- game();
- game();
- game();
- game();
- game();
+
+//   buttons event listener
+
+let buttonsDiv = document.querySelector(".buttons");
+ buttons = buttonsDiv.querySelectorAll("button");
+ buttons = Array.from(buttons);
+ buttons.forEach(btn => {
+     let value = btn.getAttribute("value")
+    btn.addEventListener("click" , () => { 
+        console.log(playRound(value , getComputerChoice()))
+       
+    } )
+});
+
+
