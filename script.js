@@ -4,6 +4,7 @@ let announcement = document.querySelector(".announce");
 let announcementText = document.querySelector(".announce h1");
 let playAgainBtn = document.querySelector(".announce button");
 let roundState = document.querySelector(".winLose");
+let mask = document.querySelector(".mask");
 function getComputerChoice() {
   let randomNumber = Math.random();
   if (randomNumber <= 0.33) {
@@ -17,18 +18,21 @@ function announceWin() {
   announcementText.innerText = "YOU WIN";
   announcement.style.visibility = "visible";
   announcement.style.color = "green";
+  mask.style.zIndex = "2";
 }
 
 function announceLose() {
   announcementText.innerText = "YOU LOST";
   announcement.style.visibility = "visible";
   announcement.style.color = "red";
+  mask.style.zIndex = "2";
 }
 function resetGame() {
   resetComputerChoice();
   playerScore.innerText = "0";
   computerScore.innerText = "0";
   roundState.innerText = "";
+  mask.style.zIndex = "-1";
 }
 function playerWonRound() {
   playerScore.innerText++;
@@ -45,15 +49,14 @@ function draw() {
   roundState.style.color = "gray";
 }
 
-playAgainBtn.addEventListener(
-  "click",
-  () => (announcement.style.visibility = "hidden")
-);
+playAgainBtn.addEventListener("click", () => {
+  announcement.style.visibility = "hidden";
+  resetGame();
+});
 
 let playRound = (playerSelection, computerSelection) => {
   updateComputerChoice(computerSelection);
   // check for draw
-  console.log(`${playerSelection} vs ${computerSelection}`);
   if (playerSelection == computerSelection) {
     draw();
     return;
@@ -66,14 +69,12 @@ let playRound = (playerSelection, computerSelection) => {
   ) {
     playerWonRound();
     if (playerScore.innerText >= 5) {
-      resetGame();
       announceWin();
     }
   } else {
     computerWonRound();
     if (computerScore.innerText >= 5) {
       announceLose();
-      resetGame();
     }
   }
 };
