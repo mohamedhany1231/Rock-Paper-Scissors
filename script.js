@@ -66,16 +66,31 @@ playAgainBtn.addEventListener("click", () => announcement.style.visibility = "hi
    
  }
  
-
-
 //   buttons event listener
-
-let buttonsDiv = document.querySelector(".buttons");
- buttons = buttonsDiv.querySelectorAll("button");
+ let buttonsDiv = document.querySelector(".buttons");
+ let   buttons = buttonsDiv.querySelectorAll("button");
  buttons = Array.from(buttons);
+
+function setBorderColor (btn)
+{
+   btn.style.borderColor = "green"
+}
+function removeBtnsBorderColor()
+{
+    buttons.forEach(btn => {
+        console.log(btn);
+        btn.style.borderColor="transparent";
+    })
+}
+
+
+
+
  buttons.forEach(btn => {
      let value = btn.getAttribute("value")
     btn.addEventListener("click" , () => { 
+        removeBtnsBorderColor();
+        setBorderColor(btn);
         playRound(value , getComputerChoice())
        
     } )

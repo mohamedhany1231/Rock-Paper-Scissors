@@ -4,9 +4,12 @@ body{
 .buttons {
   display: flex;
   justify-content: space-evenly;
+  margin-top: 5vh;
 }
 button {
   width: 100px;
+  border: 2px solid;
+  border-color: transparent;
 }
 .score {
   margin-top: 20vh;
