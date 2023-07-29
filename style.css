@@ -1,3 +1,6 @@
+* {
+  box-sizing: border-box;
+}
 body {
   background-color: antiquewhite;
 }
@@ -6,6 +9,8 @@ body {
   width: 100%;
   position: absolute;
   z-index: -1;
+  top: 0;
+  left: 0;
 }
 .buttons {
   display: flex;
